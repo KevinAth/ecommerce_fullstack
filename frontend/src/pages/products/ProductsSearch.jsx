@@ -1,21 +1,28 @@
 import { ProductsCard } from "../../components/ProductsCard";
-import { useEffect, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ProdContext } from "../../context/ProductsContext";
-import { useParams } from "react-router-dom";
 import { FilterByPrice } from "../../components/common/FilterByPrice";
-import { FilterProds } from "../../api/api_products";
+import { useParams } from "react-router-dom";
+import { SearchProducts } from "../../api/api_products";
 
-export function ProductsCategories() {
-  const { category } = useParams();
+export function ProductsSearch() {
+  const { search } = useParams();
   const [products, setProducts] = useState([]);
+  const [mensaje, setMensaje] = useState("");
 
   useEffect(() => {
-    async function loadProducts(category) {
-      const res = await FilterProds(category);
-      setProducts(res.data);
+    async function loadProducts(search) {
+      try {
+        const res = await SearchProducts(search);
+        setProducts(res.data);
+      } catch (error) {
+        if (error.response) {
+          setMensaje(error.response.data.mensaje);
+        }
+      }
     }
-    loadProducts(category);
-  }, [category]);
+    loadProducts(search);
+  }, [search]);
 
   return (
     <>
@@ -29,7 +36,8 @@ export function ProductsCategories() {
           <div className="bg-white">
             <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
               <h2 className="sr-only">Productos</h2>
-              <div className="grid grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-1">
+              {mensaje && <h1>{mensaje}</h1>}
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-2">
                 {products.map((prod, index) => (
                   <div key={index}>
                     <ProductsCard prod={prod} />

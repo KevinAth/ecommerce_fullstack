@@ -1,8 +1,8 @@
-from django.shortcuts import render
 from rest_framework.decorators import api_view
 from .models import products,categories,Reviews,ImagesByProducts
 from .serializer import productsSerializer,categoriesSerializer,reviewsSerializer,imagesSerializer
 from rest_framework.response import Response
+from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 
 # Create views here.
 
@@ -12,6 +12,21 @@ def getProducts(request):
         prods = products.objects.all()
         serializer = productsSerializer(prods, many=True)
         return Response(serializer.data)
+    
+@api_view(['GET'])
+def getProductsPage(request):
+        prods = products.objects.all()
+        paginator = Paginator(prods,15)
+        page_number = request.GET.get('page')
+        print(page_number)
+        try: 
+            page_obj = paginator.page(page_number) 
+        except PageNotAnInteger: 
+            page_obj = paginator.page(1) 
+        except EmptyPage:
+            page_obj = paginator.page(paginator.num_pages)
+        serializer = productsSerializer(page_obj.object_list, many=True)
+        return Response({ 'count': paginator.count, 'total_pages': paginator.num_pages, 'current_page': page_number, 'products': serializer.data })
     
 @api_view(['GET'])
 def getImages(request,id):
@@ -34,6 +49,9 @@ def getproduct(request,id):
         try:
             prod = products.objects.get(id=id)
             reviews_product = prod.reviews.all()            
+            imgs = ImagesByProducts.objects.filter(product=prod)
+            
+            imgs_serializer = imagesSerializer(imgs, many=True)
             reviews_serializer = reviewsSerializer(reviews_product, many=True)
             prod_serializer = productsSerializer(prod)
             
@@ -51,8 +69,27 @@ def getproduct(request,id):
         return Response({
             'product':prod_serializer.data,
             'reviews':reviews_serializer.data,
-            'review_prom':promedio
+            'review_prom':promedio,
+            'imgs':imgs_serializer.data,
         })
+        
+@api_view(['POST'])
+def createReview(request):
+    data = request.data
+    
+    product = products.objects.get(id=data['product'])
+    
+    review = Reviews.objects.create(product=product,            
+            nombre_user=data['nombre_user'],
+            rating=data['rating'],
+            comentario=data['comment']
+    )
+
+    
+    
+    
+    return Response(data)
+            
 
 @api_view(['GET'])
 def getrating(request,id):
@@ -107,11 +144,14 @@ def filterPrice(request):
             return Response({'error': str(e)}, status=500)
     else:
         return Response({'error': 'Missing min or max price'}, status=400)
-        
-
-
-        
-        
-        
-        
-        
+    
+@api_view(['GET'])
+def SearchProducts(request,search):
+    prods = products.objects.filter(nombre__icontains=search)
+    if prods:
+        products_serializer = productsSerializer(prods, many=True)
+    
+        return Response(products_serializer.data,status=200)
+    else:
+        return Response({'mensaje':'No se encontro ninguna coincidencia.'}, status=400)
+    

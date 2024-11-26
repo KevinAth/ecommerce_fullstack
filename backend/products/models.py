@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
-
+from django.conf import settings
 
 # Create your models here.
 
@@ -24,15 +23,15 @@ class products(models.Model):
 
 class ImagesByProducts(models.Model):
     product = models.ForeignKey(products,on_delete=models.CASCADE)
-    img_1 = models.ImageField(upload_to=f'products/',blank=True)
-    img_2 = models.ImageField(upload_to=f'products/',blank=True)
-    img_3 = models.ImageField(upload_to=f'products/',blank=True)
-    img_4 = models.ImageField(upload_to=f'products/',blank=True)
-    img_5 = models.ImageField(upload_to=f'products/',blank=True)
+    img_1 = models.ImageField(upload_to='products/',blank=True)
+    img_2 = models.ImageField(upload_to='products/',blank=True)
+    img_3 = models.ImageField(upload_to='products/',blank=True)
+    img_4 = models.ImageField(upload_to='products/',blank=True)
+    img_5 = models.ImageField(upload_to='products/',blank=True)
 
 class Reviews(models.Model):
     product = models.ForeignKey(products,on_delete=models.CASCADE,related_name='reviews')
-    nombre_user= models.ForeignKey(User , on_delete=models.CASCADE)
+    nombre_user= models.CharField(max_length=255)
     rating = models.IntegerField(choices=[(i,i) for i in range(1,6)])
     comentario = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

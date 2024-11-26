@@ -52,89 +52,130 @@ export function FilterByPrice(props) {
   };
 
   return (
-    <>
-      <div>
-        <h1>Categorias</h1>
+    <div className="p-6 max-w-xs mx-auto bg-white rounded-lg shadow-md">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold mb-4 text-gray-900">Categorías</h1>
         <nav>
-          <ul>
+          <ul className="space-y-2">
             <li>
-              <Link to={"/products/Laptops"}>Laptops</Link>
+              <Link
+                to={"/products/Laptops"}
+                className="block px-4 py-2 bg-green-100 text-green-700 font-semibold rounded-lg transition-colors duration-300 hover:bg-green-200"
+              >
+                Laptops
+              </Link>
             </li>
             <li>
-              <Link to={"/products/Torres"}>Torres</Link>
+              <Link
+                to={"/products/Torres"}
+                className="block px-4 py-2 bg-green-100 text-green-700 font-semibold rounded-lg transition-colors duration-300 hover:bg-green-200"
+              >
+                Torres
+              </Link>
             </li>
             <li>
-              <Link to={"/products/Monitores"}>Monitores</Link>
+              <Link
+                to={"/products/Monitores"}
+                className="block px-4 py-2 bg-green-100 text-green-700 font-semibold rounded-lg transition-colors duration-300 hover:bg-green-200"
+              >
+                Monitores
+              </Link>
             </li>
             <li>
-              <Link to={"/products/Perifericos"}>Perifericos</Link>
+              <Link
+                to={"/products/Perifericos"}
+                className="block px-4 py-2 bg-green-100 text-green-700 font-semibold rounded-lg transition-colors duration-300 hover:bg-green-200"
+              >
+                Periféricos
+              </Link>
             </li>
             <li>
-              <Link to={"/products/Portatiles"}>Portatiles</Link>
+              <Link
+                to={"/products/Portatiles"}
+                className="block px-4 py-2 bg-green-100 text-green-700 font-semibold rounded-lg transition-colors duration-300 hover:bg-green-200"
+              >
+                Portátiles
+              </Link>
             </li>
             <li>
-              <Link to={"/products/Hardware"}>Hardware</Link>
+              <Link
+                to={"/products/Hardware"}
+                className="block px-4 py-2 bg-green-100 text-green-700 font-semibold rounded-lg transition-colors duration-300 hover:bg-green-200"
+              >
+                Hardware
+              </Link>
             </li>
           </ul>
         </nav>
-        <h1>Filtrar por precio</h1>
       </div>
-      <form>
-        <div>
-          <input
-            type="radio"
-            value="todos"
-            checked={opcionseleccionada === "todos"}
-            onChange={handleOptionChange}
-          />
-          <label>Todos</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            value="0-100000"
-            checked={opcionseleccionada === "0-100000"}
-            onChange={handleOptionChange}
-          />
-          <label>0 - 100.000</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            value="100000-500000"
-            checked={opcionseleccionada === "100000-500000"}
-            onChange={handleOptionChange}
-          />
-          <label>100.000 - 500.000</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            value="500000-1000000"
-            checked={opcionseleccionada === "500000-1000000"}
-            onChange={handleOptionChange}
-          />
-          <label>500.000 - 1.000.000</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            value="1000000-2000000"
-            checked={opcionseleccionada === "1000000-2000000"}
-            onChange={handleOptionChange}
-          />
-          <label>1.000.000 - 2.000.000</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            value="mas_de_2000000"
-            checked={opcionseleccionada === "mas_de_2000000"}
-            onChange={handleOptionChange}
-          />
-          <label>Mas de 2.000.000</label>
-        </div>
-      </form>
-    </>
+
+      <div>
+        <h1 className="text-2xl font-bold mb-4 text-gray-900">
+          Filtrar por Precio
+        </h1>
+        <form className="space-y-2">
+          <div className="flex items-center">
+            <input
+              type="radio"
+              value="todos"
+              checked={opcionseleccionada === "todos"}
+              onChange={handleOptionChange}
+              className="form-radio h-4 w-4 text-green-600"
+            />
+            <label className="ml-2 text-gray-700">Todos</label>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="radio"
+              value="0-100000"
+              checked={opcionseleccionada === "0-100000"}
+              onChange={handleOptionChange}
+              className="form-radio h-4 w-4 text-green-600"
+            />
+            <label className="ml-2 text-gray-700">0 - 100.000</label>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="radio"
+              value="100000-500000"
+              checked={opcionseleccionada === "100000-500000"}
+              onChange={handleOptionChange}
+              className="form-radio h-4 w-4 text-green-600"
+            />
+            <label className="ml-2 text-gray-700">100.000 - 500.000</label>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="radio"
+              value="500000-1000000"
+              checked={opcionseleccionada === "500000-1000000"}
+              onChange={handleOptionChange}
+              className="form-radio h-4 w-4 text-green-600"
+            />
+            <label className="ml-2 text-gray-700">500.000 - 1.000.000</label>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="radio"
+              value="1000000-2000000"
+              checked={opcionseleccionada === "1000000-2000000"}
+              onChange={handleOptionChange}
+              className="form-radio h-4 w-4 text-green-600"
+            />
+            <label className="ml-2 text-gray-700">1.000.000 - 2.000.000</label>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="radio"
+              value="mas_de_2000000"
+              checked={opcionseleccionada === "mas_de_2000000"}
+              onChange={handleOptionChange}
+              className="form-radio h-4 w-4 text-green-600"
+            />
+            <label className="ml-2 text-gray-700">Más de 2.000.000</label>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }

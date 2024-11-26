@@ -7,6 +7,15 @@ export function ProductsCard({ prod }) {
   const [rating, setRating] = useState(0);
   const [image, setImage] = useState("");
 
+  function formatPrice(price) {
+    const numberPrice = Number(price);
+    return numberPrice.toLocaleString("es-ES", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 2,
+    });
+  }
+
   useEffect(() => {
     async function loadImages(id) {
       const { data } = await GetImgProduct(id);
@@ -23,24 +32,32 @@ export function ProductsCard({ prod }) {
 
   return (
     <Link
-      to={`/productdetails/${prod.id}`}
+      to={`/productdetails/${prod.id}/`}
       key={prod.id}
       href={prod.href}
-      className="group"
+      className="group block shadow-lg hover:shadow-xl transition-shadow duration-300 w-60"
     >
-      <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+      <div className="relative h-64 w-full overflow-hidden bg-gray-200">
         <img
           alt={image}
           src={
-            prod.id && `http://localhost:8000/${image}?${new Date().getTime()}`
+            image
+              ? `http://localhost:8000/${image}?${new Date().getTime()}`
+              : "https://via.placeholder.com/150"
           }
           onError={(e) => (e.target.src = "https://via.placeholder.com/150")}
-          className="h-full w-full object-cover object-center group-hover:opacity-75"
+          className="absolute inset-0 h-full w-full object-cover group-hover:opacity-75 transition-opacity duration-300"
         />
       </div>
-      <h3 className="mt-4 text-sm text-gray-700">{prod.nombre}</h3>
-      <Rating estrellas={rating} />
-      <p className="mt-1 text-lg font-medium text-gray-900">{prod.precio}</p>
+      <div className="p-4 bg-white rounded-b-lg">
+        <h3 className="text-sm text-gray-700 font-medium group-hover:text-gray-900 transition-colors duration-300 truncate">
+          {prod.nombre}
+        </h3>
+        <Rating estrellas={rating} />
+        <p className="mt-2 text-lg font-semibold text-gray-900">
+          {formatPrice(prod.precio)}
+        </p>
+      </div>
     </Link>
   );
 }

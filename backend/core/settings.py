@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # App's de django // aplicaciones creadas.
     'products',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -135,7 +136,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:5173'] # Añadir rutas permitidas para que se conecte o acepta las solicitudes desde frontend
 
+AUTH_USER_MODEL = 'user.customUser'
 
 # archivos staticos 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
+
+JWT_SECRET_KEY = SECRET_KEY
+JWT_ALGORITHM = 'HS256'

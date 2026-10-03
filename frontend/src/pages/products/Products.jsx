@@ -11,6 +11,7 @@ export function Products() {
   const [page, setPage] = useState(1); // Página actual
   const [productsPage, setProductsPage] = useState([]); // Productos actuales
   const [totalPages, setTotalPages] = useState(1); // Número total de páginas
+  
   const [loading, setLoading] = useState(false); // Indicador de carga
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export function Products() {
             <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
               <h2 className="sr-only">Productos</h2>
 
-              {/* Carga o productos */}
+              {/* Carga de productos */}
               {loading ? (
                 <div className="text-center text-gray-500">
                   Cargando productos...
@@ -71,6 +72,7 @@ export function Products() {
             setPage={setPage}
             page={page}
             totalPages={totalPages}
+            
           />
         </div>
       </div>

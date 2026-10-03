@@ -85,9 +85,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         "NAME": "database_ecommerce",
-        "USER": "root",
+        "USER": "kevin",
         "PASSWORD": "",
-        "HOST": '127.0.0.1',
+        "HOST": 'localhost',
         "PORT": "3306",
     }
 }
@@ -134,7 +134,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:5173'] # Añadir rutas permitidas para que se conecte o acepta las solicitudes desde frontend
+CORS_ALLOWED_ORIGINS = ['http://localhost:5173',"http://localhost:5174"] # Añadir rutas permitidas para que se conecte o acepta las solicitudes desde frontend
 
 AUTH_USER_MODEL = 'user.customUser'
 

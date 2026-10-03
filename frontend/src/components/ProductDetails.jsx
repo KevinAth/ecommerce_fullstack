@@ -5,6 +5,7 @@ import { Rating } from "./common/Rating";
 import { ProductCarousel } from "./common/ProductCarousel";
 import { ProdContext } from "../context/ProductsContext";
 import { Link } from "react-router-dom";
+import  placeholder from "../assets/placeholder.png"
 
 export function ProductDetails() {
   const { addCart, isAutenticated } = useContext(ProdContext);
@@ -117,7 +118,7 @@ export function ProductDetails() {
                   src={
                     activa
                       ? "http://localhost:8000" + activa
-                      : "https://via.placeholder.com/150"
+                      : placeholder
                   }
                   alt={"images-Products"}
                 />
@@ -131,7 +132,7 @@ export function ProductDetails() {
                       src={
                         img
                           ? "http://localhost:8000" + img
-                          : "https://via.placeholder.com/150"
+                          : placeholder
                       }
                       alt="images-Products"
                     />
@@ -170,7 +171,7 @@ export function ProductDetails() {
                   >
                     +
                   </button>
-                </div>
+                </div>QUIERO ESTUDIAR PORFAA
               </div>
               <div className="col-span-8">
                 <button
@@ -272,8 +273,8 @@ export function ProductDetails() {
               ))}
             </div>
           ) : (
-            <div class="p-4 text-center">
-              <h3 class="text-lg font-semibold text-gray-700">
+            <div className="p-4 text-center">
+              <h3 className="text-lg font-semibold text-gray-700">
                 No hay ningún comentario, ¡sé el primero en comentar este
                 producto!
               </h3>

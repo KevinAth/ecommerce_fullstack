@@ -16,7 +16,7 @@ def getProducts(request):
 @api_view(['GET'])
 def getProductsPage(request):
         prods = products.objects.all()
-        paginator = Paginator(prods,15)
+        paginator = Paginator(prods,10)
         page_number = request.GET.get('page')
         print(page_number)
         try: 
@@ -26,7 +26,8 @@ def getProductsPage(request):
         except EmptyPage:
             page_obj = paginator.page(paginator.num_pages)
         serializer = productsSerializer(page_obj.object_list, many=True)
-        return Response({ 'count': paginator.count, 'total_pages': paginator.num_pages, 'current_page': page_number, 'products': serializer.data })
+        print(dir(paginator))
+        return Response({ 'count': paginator.count, 'total_pages': paginator.num_pages, 'current_page': int(page_number), 'products': serializer.data })
     
 @api_view(['GET'])
 def getImages(request,id):
@@ -84,10 +85,6 @@ def createReview(request):
             rating=data['rating'],
             comentario=data['comment']
     )
-
-    
-    
-    
     return Response(data)
             
 

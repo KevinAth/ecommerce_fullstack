@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GetImgProduct, GetRating } from "../api/api_products";
 import { Rating } from "./common/Rating";
-
+import placeholder from "../assets/placeholder.png"
 export function ProductsCard({ prod }) {
   const [rating, setRating] = useState(0);
   const [image, setImage] = useState("");
@@ -43,7 +43,7 @@ export function ProductsCard({ prod }) {
           src={
             image
               ? `http://localhost:8000/${image}?${new Date().getTime()}`
-              : "https://via.placeholder.com/150"
+              : placeholder
           }
           onError={(e) => (e.target.src = "https://via.placeholder.com/150")}
           className="absolute inset-0 h-full w-full object-cover group-hover:opacity-75 transition-opacity duration-300"

@@ -6,8 +6,6 @@ export const ProductCarousel = ({ items }) => {
   const { products } = useContext(ProdContext);
   const [visibleProductsCount, setVisibleProductsCount] = useState(5);
   
-  console.log(products)
-
   useEffect(() => {
     const updateVisibleProductsCount = () => {
       const width = window.innerWidth;
